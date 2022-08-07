@@ -1,0 +1,162 @@
+//Bubble Sort
+example:
+n=5
+15 16 6 8 5
+
+pass 1://comparisons start from first two elements  ==>> i=0
+a.  15  16  6  8  5  // 1.comparison between 15 and 6, since 15<16 no need to swap 
+b.  15  6  16  8  5  // 2.comparison between 16 and 6, since 16>6 so swap it
+c.  15  6  8  16  5  // 3.comparison between 16 and 8, since 16>8 => swap
+d.  15  6  8  5  16  // 4.comparison between 16 and 5, since 16>5 => swap
+=>  15  6  8  5  16  // as we reached the end, and we can se that 16 is the largest of the given elements. so, 16 is sorted
+
+pass 2::  ==>> i=1
+a.  6  15  8  5  16  // 1.15>6 =>swap
+b.  6  8  15  5  16  // 2.15>8 =>swap
+c.  6  8  5  15  16  // 3.15>5 =>swap
+d.  6  8  5  15  16  // 4.15<16 =>no swap
+=>  6  8  5  15  16  // 15 16 are sorted
+
+pass 3::  ==>> i=2
+a.  6  8  5  15  16  // 1.6<8 =>no swap
+b.  6  5  8  15  16  // 2.8>5 =>swap
+c.  6  5  8  15  16  // 3.8<15 =>no swap
+d.  6  5  8  15  16  // 4.15<16 =>no swap
+=>  6  5  8  15  16  // 8  15  16  are sorted
+
+pass 4::  ==>>i=3
+a.  5  6  8  15  16  // 1.6>5 =>swap
+b.  5  6  8  15  16  // 2.6<8 =>no swap
+c.  5  6  8  15  16  // 3.8<15 =>no swap
+d.  5  6  8  15  16  // 4.15<16 =>no swap
+=>  5  6  8  15  16  // 6  8  15  16  are sorted elements. since n-1 elements are sorted then the remaining 1 element is also sorted.
+
+
+logic==>
+
+there are passes and comparisons.
+so one loop for passes and another loop for comparisons.
+we can see that n=5 and passes=4 i.e., we can say that passes = n-1. so the loop for passes can check up to n-1. i.e., from 0 to n-1 or from 1 to n.
+we can see that comparisons done in each pass are 4. so, comparisons are also n-1. then the loop for comparisons from 0 to n-1 or 1 to n.
+
+
+for(int i=0;i<n-1;i++){  //this for loop is for iterations or passes there will be n-1 passes or iterations where n is size of an array
+    for(int j=0;j<n-1;j++){  //this for is for comparisons between elements 
+        if(a[j]>a[j+1]){  //if the first element is greater than second element then perform swap
+            //swap
+            temp=a[j]
+            a[j]=a[j+1]
+            a[j+1]=temp
+        }
+    }
+}
+
+=>we are performing the comparisons even if the elements are sorted. so logic for not to compare the sorted elements.
+to optimize the logic =>>
+from the example we can observe that in pass1 or iteration0 the no elements are in sorted order during first.
+but in pass2 or iteration1 there is 1 element is sorted at first like that
+pass3 or iteration2 there are 2 elements are sorted at first and in pass4 or iteration3 there are 3 elements sorted first.
+==>> but again we performing comparisons between sorted elements.
+so we don't need to compare sorted elements. perform comparisons up to n-1-i.
+so the optimization will works as==>>
+
+::from above example
+
+pass 1://comparisons start from first two elements  ==>> i=0
+a.  15  16  6  8  5  // 1.comparison between 15 and 6, since 15<16 no need to swap 
+b.  15  6  16  8  5  // 2.comparison between 16 and 6, since 16>6 so swap it
+c.  15  6  8  16  5  // 3.comparison between 16 and 8, since 16>8 => swap
+d.  15  6  8  5  16  // 4.comparison between 16 and 5, since 16>5 => swap
+=>  15  6  8  5  16  // as we reached the end, and we can se that 16 is the largest of the given elements. so, 16 is sorted
+
+pass 2::  ==>> i=1
+a.  6  15  8  5  16  // 1.15>6 =>swap
+b.  6  8  15  5  16  // 2.15>8 =>swap
+c.  6  8  5  15  16  // 3.15>5 =>swap
+d.  6  8  5  15  16  // 4.15<16 =>no swap =>>no need to compare
+=>  6  8  5  15  16  // 15 16 are sorted
+
+pass 3::  ==>> i=2
+a.  6  8  5  15  16  // 1.6<8 =>no swap
+b.  6  5  8  15  16  // 2.8>5 =>swap
+c.  6  5  8  15  16  // 3.8<15 =>no swap =>>no need
+d. 
+=>  6  5  8  15  16  // 8  15  16  are sorted
+
+pass 4::  ==>>i=3
+a.  5  6  8  15  16  // 1.6>5 =>swap
+b.  5  6  8  15  16  // 2.6<8 =>no swap//no need
+c.  
+d. 
+=>  5  6  8  15  16  // 6  8  15  16  are sorted elements. since n-1 elements are sorted then the remaining 1 element is also sorted.
+
+
+logic will be==>>
+
+for(int i=0;i<n-1;i++){ 
+    for(int j=0;j<n-1-i;j++){  
+        if(a[j]>a[j+1]){ 
+            temp=a[j]
+            a[j]=a[j+1]
+            a[j+1]=temp
+        }
+    }
+}
+
+
+for example if there are some elements which are already sorted, then using above logic it'll compare the already sorted elements.
+example::
+n=5
+16  14  5  6  8
+
+pass1::  i==>>0
+a.14  16  5  6  8  // 1.16>14 =>swap
+b.14  5  16  6  8  // 2.16>5 =>swap
+c.14  5  6  16  8  // 3.16>6 =>swap
+d.14  5  6  8  16  // 4.16>8 =>swap
+=>14  5  6  8  16  // 16 is sorted
+
+pass2:: i==>>1
+a.5  14  6  8  16  // 1.14>5 =>swap
+b.5  6  14  8  16  // 2.14>6 =>swap
+c.5  6  8  14  16  // 3.14>8 =>swap
+d.                 // no need since 16 is sorted
+=>5  6  8  14  16  // 14  16 are sorted
+
+pass3:: i==>>2
+a.5  6  8  14  16  // 1.5<6 =>no swap
+b.5  6  8  14  16  // 2.6<8 =>no swap
+c.                 // no need since 14 is sorted
+d.                 // 
+=>5  6  8  14  16  // 8 14  16 are sorted so 5 is also in sorted order.
+=====>>> pass3 is not required as we can see the elements are in sorted order.
+
+
+a.5  6  8  14  16  // 5  6  8  14  16  are sorted
+b.5  6  8  14  16  // 
+c.                 // 
+d.                 // 
+
+as we can see that in a comparison 5<6 so no swap and in b comparison 6<8 so no swap. that means ==>>
+if a[j]>a[j+1] ==>> this condition fails then the pass is not required means the comparisons are done in previous pass so the pass or iteration is not required.
+===>>> we can take the flag variable and set it as 0.if the swap has done during comparison then the flag will be 1. 
+No swapping means if the flag value is 0 then apply break.
+which means we have to apply break condition such that the control comes out of the pass loop.
+
+
+so the optimized logic will be =>>
+
+
+for(int i=0;i<n-1;i++){ 
+    flag=0
+    for(int j=0;j<n-1-i;j++){  
+        if(a[j]>a[j+1]){ 
+            temp=a[j]
+            a[j]=a[j+1]
+            a[j+1]=temp
+            flag=1
+        }
+    }
+    if(flag==0)
+    break
+}
