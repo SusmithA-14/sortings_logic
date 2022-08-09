@@ -1,0 +1,57 @@
+Insertion Sort
+example::
+n=6
+5  4  10  1  6  2
+
+Insertion Sort where we assume the first element as sorted. and from the next element are in unsorted order.
+So,
+
+0   1  2   3  4  5
+5•  4  10  1  6  2  // 5 is sorted and from 4 i.e., 4  10  1  6  2 are in unsorted order
+now, take the next element after 5(sorted) i.e., 4 and place it in temp
+5•  _  10  1  6  2  temp=4
+now check and compare temp value with the elements in sorted order from right of the sorted order elements.
+compare 5 and temp -->>  5 > temp so shift the 5 value in next position, it will be look as
+_  5•  10  1  6  2  temp=4
+now there is no other element in sorted order so place the temp in the blank position. it'll be like--
+4  5•  10  1  6  2
+now take 10 place it in temp
+4  5•  _  1  6  2  ==>>temp=10
+compare 10 with the elements in sorted order.
+since 5<10 so no need to shift the 5 so place the 10 after 5. then it'll be as--
+4  5  10•  1  6  2
+now take 1 as temp
+4  5  10•  _  6  2  ==>>temp=1
+compare 10 and temp --> 10>1 so shift the 10 value position to right by 1. then it'll be as--
+4  5  _  10•  6  2  ==>>temp=1
+now compare 5 and temp --> 5>1 so shift the 5 value position to right by 1. then it'll be as--
+4  _  5  10•  6  2  ==>temp=1
+now compare 4 and temp --> 4>1 so shift the 1 value position to right by 1. then it'll be as--
+_  4  5  10•  6  2  ==>temp=1
+so now place the 1
+1  4  5  10•  6  2
+now take 6 as temp ==>>temp=6
+compare 10 and temp -->>10>temp so shift the 10 value position to right by 1. then it'll be as--
+1  4  5  _  10•  2
+now compare 5 and temp -->>5<temp so don't shift the 5 position instead place the temp after 5. then it'll be as--
+1  4  5  6  10•  2
+now place 2 as temp 
+1  4  5  6  10•  _  ==>>temp=2
+compare temp and 10 as 10>temp shift the 10 value position to right by 1. then it'll be as--
+1  4  5  6  _  10•  ==>temp=2
+compare 6 and temp as 6>temp and now compare 5 and temp as 5> temp now compare 4 and temp as 4>temp, now compare 1 and temp
+as 1<temp so don't shift the 1 value position and place the temp after 1. then it'll be as--
+1  2  4  5  6  10 ==>> sorted order
+
+so now the logic for the above sort is  -=--==---===>>
+
+
+for(int i=1;i<n;i++){
+    temp=a[i]
+    j=i-1
+    while(j<=0 && a[j]>temp){
+        a[j+1]=a[j]
+        j--
+    }
+    a[j+1]=temp
+}
