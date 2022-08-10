@@ -1,0 +1,111 @@
+Quick Sort
+quick sort follows divide and conquer method.
+
+->an element is selected as pivot element and after sorting the elements the elements less than pivot element will be on left side of pivot and
+the elements which are greater than pivot will be at right side of pivot.
+->starting of algorithm the start is at lower bound and the end is at upper bound.
+
+the basic rules for partitioning in quick sort is::
+◘ if start < end then::
+•if start is less than or equal to pivot then increment the start. ==>> start<=pivot -->> start++
+•if end is greater than pivot then decrement the end. ==>> end>pivot -->> end++
+•if the above conditions are false then the start and end stop at positions, and the start and end elements will be swapped.
+◘ if start > end i.e., start and end are crossed each other then::
+• swap the pivot element and end pos element. and store the end value in variable for example var.
+now the pivot will be in middle so now the elements before pivot and elements after pivot have to be sorted. 
+so now apply the partition method for 
+• partition(start,var-1)
+• partition(var+1,end)
+
+example::
+
+up                        lb
+0  1  2   3  4  5  6  7   8
+7  6  10  5  9  2  1  15  7
+s                         e
+p
+
+p-->pivot=7
+s-->start
+e-->end
+    ___
+p= | 7 |
+
+
+s                         e                          s                      e 
+7  6  10  5  9  2  1  15  7  // s=p so s++ ===>>  7  6  10  5  9  2  1  15  7   // s<p ->> s++ ==>>
+
+
+      s                   e                                                                                           
+7  6  10  5  9  2  1  15  7  // s>p stop the start. e=p so the condition fails so swap start and end. then ==>> 
+
+
+      s                  e                                s               e
+7  6  7  5  9  2  1  15  10  // s=p so s++ ==>>  7  6  7  5  9  2  1  15  10  // s<p so s++ ==>>
+
+
+            s             e                                                 s        e                                       s     e
+7  6  7  5  9  2  1  15  10  // s>p so stop s, e>p so e-- ==>>  7  6  7  5  9  2  1  15  10  // e>p so e--  ==>>  7  6  7  5  9  2  1  15  10  // e<p so stop e
+now swap s and e then
+
+
+            s     e                                             s  e                                               s e
+7  6  7  5  1  2  9  15  10  // s<p so s++ ==>>  7  6  7  5  1  2  9  15  10  // s<p so s++  ==>> 7  6  7  5  1  2  9  15  10 //s>p so stop s ==>>
+
+
+                 s e                                           e  s
+7  6  7  5  1  2  9  15  10 // e>p so e--  =>>  7  6  7  5  1  2  9  15  10  // e<p so stop e
+as we see start and end are crossed each other so swap pivot and end then ==>
+
+0  1  2  3  4  5  6   7   8
+2  6  7  5  1  7  9  15  10
+               p
+
+as we can see that the the pivot is in middle i.e., the elements before pivot are smaller than pivot and after the pivot are greater than pivot.
+so now the elements before pivot and elements after pivot have to be sorted.
+
+i.e., 
+
+s           e                   s       e
+2  6  7  5  1        and        9  15  10
+p                               p
+
+so apply the same partitioning on both elements. after sorting the elements will be as -->>
+
+1  2  5  6  7  9  10  15.
+
+so now the logic will be-->>
+
+
+partition(a,lb,up){
+    a[lb]=p
+    s=lb
+    e=up
+    while(s<e){
+        while(s<p)
+        {
+            s++
+        }
+        while(e>p)
+        {
+            e--
+        }
+        if(s<e)
+        {
+            swap(a[s],a[e])
+        }
+    }
+    swap(a[lb],a[e])
+    return e
+}
+
+quicksort(a,lb,up)
+{
+    if(lb<up){
+        var=partition(a,lb,up)
+        partition(a,lb,var-1)
+        partition(a,var+1,up)
+    }
+}
+
+

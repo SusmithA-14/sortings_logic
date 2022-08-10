@@ -1,0 +1,53 @@
+Merge Sort
+
+logic for Merge sort =>>
+
+Mergesort(a,lb,ub){
+    if(ub<lb)
+    {
+        mid=(lb+ub)/2
+        Mergesort(a,lb,mid)
+        Mergesort(a,mid+1,ub)
+        merge(a,lb,mid,ub)
+    }
+}
+
+//for merging
+
+merge(a,lb,mid,ub){
+    i=lb
+    j=mid+1
+    k=lb
+    while(i<=mid && j<=ub)
+    {
+        if(a[i]<=a[j])
+        {
+            b[k]=a[i]
+            i++
+        }
+        else
+        {
+            b[k]=a[j]
+            j++
+        }
+        k++
+    }
+    if(i>mid) // if i came to end no elements are there then insert remaining all elements of j into k array
+    {
+        while(j<=ub) // j has elements
+        {
+            b[k]=a[j]
+            j++
+            k++
+        }
+    }
+    else  // if j came to end and have no elements then insert remaining all elements of i into k array
+    {
+        while(i<=mid)  // i has elements
+        {
+            b[k]=a[i]
+            i++
+            k++
+        }
+    }
+}
